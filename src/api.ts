@@ -14,7 +14,9 @@ const apiRoutes: {
     route: "ingredients",
     handler(req, res) {
       const ingredients: Ingredients = {
-        ingredients: []
+        ingredients: [{
+          name: "tomate"
+        }]
       };
       res.send(ingredients);
     }

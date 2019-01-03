@@ -4,6 +4,7 @@ import {
   Nav,
   Navbar,
   NavItem,
+  Row,
 } from 'react-bootstrap';
 import TableSorter from '../TableSorter';
 import {getIngredients} from "../api";
@@ -25,15 +26,14 @@ export default class Ingredients extends React.Component {
   }
 
   public render() {
-    if (this.state.error) {
-      return (<div>
-        {this.state.error.message}
-      </div>)
-    }
+    const content = this.state.error
+    ? (<div>{this.state.error.message}</div>)
+    : (<div>{JSON.stringify(this.state.ingredients)}</div>)
     return (
-      <div>
-        {JSON.stringify(this.state.ingredients)}
-      </div>
+      <Row>
+        <h1>Ingredients</h1>
+        {content}
+      </Row>
     );
   }
 

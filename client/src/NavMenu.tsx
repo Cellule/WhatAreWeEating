@@ -30,13 +30,13 @@ export default class NavMenu extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav>
-          {pages.map(page =>
-            <LinkContainer to={page.path} exact={true}>
-              <NavItem>
-                <Icon {...page.icon} /> {page.component.displayName}
-              </NavItem>
-            </LinkContainer>
-          )}
+            {pages.map(page =>
+              <LinkContainer key={page.path} to={page.path} exact={true}>
+                <NavItem>
+                  <Icon {...page.icon} /> {page.component.displayName}
+                </NavItem>
+              </LinkContainer>
+            )}
             </Nav>
         </Navbar.Collapse>
       </Navbar>
