@@ -1,18 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import mongo from "mongodb";
-
-const secrets = require("../secrets.json");
-
-let db: mongo.MongoClient;
-mongo.MongoClient.connect(secrets.mongo, (err, _db) => {
-  if (err) {
-    console.error(err);
-    process.exit(-1);
-  }
-  console.log("Connected to database");
-  db = _db;
-});
+import {withDb} from "./database";
 
 const app = express();
 const port = process.env.PORT || 5000;
