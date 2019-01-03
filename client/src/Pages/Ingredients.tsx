@@ -8,12 +8,12 @@ import {
 } from 'react-bootstrap';
 import TableSorter from '../Components/TableSorter';
 import { getIngredients } from "../api";
-import { Ingredient } from '../../../common/interface';
+import { IIngredient } from '../../../common/interfaces';
 import Loading from '../Components/Loading';
 import CancellablePromise from '../CancellablePromise';
 
 interface State {
-  ingredients: Ingredient[]
+  ingredients: IIngredient[]
 }
 
 export default class Ingredients extends React.Component {

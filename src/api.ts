@@ -1,34 +1,29 @@
-import {Ingredients} from "../common/api-interface"
 import express from "express";
+import apiRoutes from "../common/api"
 
-interface RouteDefinition {
-  route: string;
-  handler: express.RequestHandler
-}
-
-const apiRoutes: {
-  get: RouteDefinition[],
-  post: RouteDefinition[],
+const handlers: {
+  get: {[path: string]: express.RequestHandler},
+  post: {[path: string]: express.RequestHandler},
 } = {
-  get: [{
-    route: "ingredients",
-    handler(req, res) {
-      const ingredients: Ingredients = {
+  get: {
+    ingredients(req, res) {
+      const ingredients: typeof apiRoutes.get.ingredients.type = {
         ingredients: [{
           name: "tomate"
         }]
       };
       res.send(ingredients)
     }
-  }],
-  post: []
+  },
+  post: {}
 }
 
 export function attachApiRoutes(app: express.Express) {
-  for (const route of apiRoutes.get) {
-    app.get("/api/" + route.route, route.handler);
-  }
-  for (const route of apiRoutes.post) {
-    app.post("/api/" + route.route, route.handler);
+  for (const method in handlers) {
+    for (const route in handlers[method]) {
+      const handler = handlers[method][route];
+      const routeDef = apiRoutes[method][route];
+      app[method](routeDef.path, handler);
+    }
   }
 }
