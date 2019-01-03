@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-const secrets = require("../secrets.json");
+import secrets from "../secrets.json";
 
 export async function connect() {
   await mongoose.connect(secrets.mongo);

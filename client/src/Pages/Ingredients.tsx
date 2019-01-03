@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import TableSorter from '../Components/TableSorter';
 import { getIngredients } from "../api";
-import { IIngredient } from '../../../common/interfaces';
+import { IIngredient } from '../common/interfaces';
 import Loading from '../Components/Loading';
 import CancellablePromise from '../CancellablePromise';
 

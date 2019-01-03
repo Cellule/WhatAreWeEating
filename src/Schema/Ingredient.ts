@@ -1,5 +1,5 @@
 import { Document, Schema, model} from "mongoose";
-import { IIngredient } from "../../common/interfaces";
+import { IIngredient } from "../../client/src/common/interfaces";
 
 export interface IIngredientModel extends IIngredient, Document {
   // mongoose methods
