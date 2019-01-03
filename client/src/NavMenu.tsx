@@ -8,6 +8,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import {pages} from "./Pages"
+import Icon from './Icon';
 //import './NavMenu.css';
 
 export default class NavMenu extends React.Component {
@@ -29,13 +30,13 @@ export default class NavMenu extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav>
-          {pages.map(page => {
-              <LinkContainer to={page.path} exact={true}>
-                <NavItem>
-                  <Glyphicon glyph='home' /> {page.component.displayName}
-                </NavItem>
-              </LinkContainer>
-          })}
+          {pages.map(page =>
+            <LinkContainer to={page.path} exact={true}>
+              <NavItem>
+                <Icon {...page.icon} /> {page.component.displayName}
+              </NavItem>
+            </LinkContainer>
+          )}
             </Nav>
         </Navbar.Collapse>
       </Navbar>

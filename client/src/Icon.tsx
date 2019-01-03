@@ -4,7 +4,7 @@ import {
 } from "react-bootstrap";
 import classSet from "react-classset";
 
-interface IProps {
+export interface IProps {
   // String to be used as a class prefix for the approriate glyphicon library.
   library?: "glyphicon" | "fa",
   glyph: string,

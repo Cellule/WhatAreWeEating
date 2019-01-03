@@ -1,5 +1,6 @@
 import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.css"
+import "@fortawesome/fontawesome-free/css/all.css"
 import React, { Component } from 'react';
 import NavMenu from "./NavMenu";
 import { Route } from 'react-router';
