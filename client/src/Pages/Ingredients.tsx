@@ -6,13 +6,14 @@ import {
   NavItem,
   Row,
 } from 'react-bootstrap';
-import TableSorter from '../TableSorter';
-import {getIngredients} from "../api";
+import TableSorter from '../Components/TableSorter';
+import { getIngredients } from "../api";
 import { Ingredient } from '../../../common/interface';
+import Loading from '../Components/Loading';
+import CancellablePromise from '../CancellablePromise';
 
 interface State {
   ingredients: Ingredient[]
-  error?: Error
 }
 
 export default class Ingredients extends React.Component {
@@ -21,30 +22,36 @@ export default class Ingredients extends React.Component {
     ingredients: [],
   }
 
-  public componentDidMount() {
-    this.loadIngredients();
-  }
-
   public render() {
-    const content = this.state.error
-    ? (<div>{this.state.error.message}</div>)
-    : (<div>{JSON.stringify(this.state.ingredients)}</div>)
     return (
       <Row>
         <h1>Ingredients</h1>
-        {content}
+        <Loading load={this.loadIngredients} render={this.renderIngredientTable}/>
       </Row>
     );
   }
 
-  private loadIngredients = async () => {
-    try {
-      const {ingredients} = await getIngredients();
+  private renderIngredientTable = () => {
+    return <TableSorter
+      config={{
+        defaultOrdering: ["name"],
+        sort: { column: "name", order: "asc" },
+        columns: {
+          name: {
+            name: "Name"
+          }
+        }
+      }}
+      items={this.state.ingredients}
+    />
+  }
+
+  private loadIngredients = async (cancel: CancellablePromise<void>) => {
+    const { ingredients } = await getIngredients();
+    if (!cancel.isCancelled) {
       this.setState({
         ingredients
       });
-    } catch (error) {
-      this.setState({error})
     }
   };
 }

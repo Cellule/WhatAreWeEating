@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Home from "./Home";
 import Ingredients from "./Ingredients";
-import {IProps as IconProps} from '../Icon';
+import {IProps as IconProps} from '../Components/Icon';
 
 class Display extends React.Component {
   public static displayName: string;

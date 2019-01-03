@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "@fortawesome/fontawesome-free/css/all.css"
 import React, { Component } from 'react';
 import DocumentTitle from "react-document-title";
-import NavMenu from "./NavMenu";
+import NavMenu from "./Components/NavMenu";
 import { Route } from 'react-router';
 import { pages } from "./Pages"
 import { Grid } from 'react-bootstrap';
