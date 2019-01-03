@@ -6,6 +6,7 @@ export default class CancellablePromise<T> {
   private cancellable: Promise<T>;
   private resolve: (value: T) => void;
   private reject: (...args: any) => void;
+  private controller: AbortController;
 
   constructor(makePromise: (cancel: CancellablePromise<T>) => Promise<T>) {
     this.resolve = () => {};
@@ -14,6 +15,7 @@ export default class CancellablePromise<T> {
       this.resolve = resolve;
       this.reject = reject;
     });
+    this.controller = new AbortController();
     (async (resolve, reject) => {
       try {
         const data = await makePromise(this);
@@ -30,6 +32,10 @@ export default class CancellablePromise<T> {
     })(this.resolve, this.reject);
   }
 
+  get signal() {
+    return this.controller.signal;
+  }
+
   get isCancelled() {
     return this.cancelled;
   }
@@ -37,6 +43,7 @@ export default class CancellablePromise<T> {
   cancel() {
     if (!this.resolved && !this.cancelled) {
       this.cancelled = true;
+      this.controller.abort();
       this.reject(new Error("cancelled"));
     }
   }

@@ -18,7 +18,7 @@ const apiRoutes: {
           name: "tomate"
         }]
       };
-      res.send(ingredients);
+      res.send(ingredients)
     }
   }],
   post: []

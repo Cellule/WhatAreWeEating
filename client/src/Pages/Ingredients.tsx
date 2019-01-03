@@ -47,7 +47,7 @@ export default class Ingredients extends React.Component {
   }
 
   private loadIngredients = async (cancel: CancellablePromise<void>) => {
-    const { ingredients } = await getIngredients();
+    const { ingredients } = await getIngredients(cancel.signal);
     if (!cancel.isCancelled) {
       this.setState({
         ingredients
