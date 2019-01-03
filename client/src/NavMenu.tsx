@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
+import {pages} from "./Pages"
 //import './NavMenu.css';
 
 export default class NavMenu extends React.Component {
@@ -27,13 +28,15 @@ export default class NavMenu extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to={'/'} exact={true}>
-              <NavItem>
-                <Glyphicon glyph='home' /> Home
-              </NavItem>
-            </LinkContainer>
-          </Nav>
+            <Nav>
+          {pages.map(page => {
+              <LinkContainer to={page.path} exact={true}>
+                <NavItem>
+                  <Glyphicon glyph='home' /> {page.component.displayName}
+                </NavItem>
+              </LinkContainer>
+          })}
+            </Nav>
         </Navbar.Collapse>
       </Navbar>
     );

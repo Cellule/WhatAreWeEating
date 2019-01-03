@@ -6,8 +6,8 @@ import {
   NavItem,
 } from 'react-bootstrap';
 
-export default class NavMenu extends React.Component {
-  public displayName = NavMenu.name
+export default class Home extends React.Component {
+  public static displayName = Home.name
 
   public render() {
     return (

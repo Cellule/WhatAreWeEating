@@ -1,0 +1,7 @@
+.table-sorter {
+  margin-bottom: 5px;
+}
+
+.pagination li span {
+  cursor: pointer;
+}
