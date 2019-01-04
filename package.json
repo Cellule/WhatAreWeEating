@@ -5,7 +5,7 @@
   "scripts": {
     "client": "cd client && npm start",
     "build-server": "tsc -p .",
-    "server": "nodemon server.js -w server.js -w src -w tsconfig*.json -w common -e ts",
+    "server": "nodemon server.js -w server.js -w src -w tsconfig*.json -w client/src/common -e ts",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {

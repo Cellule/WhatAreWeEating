@@ -7,7 +7,9 @@ export interface IIngredientModel extends IIngredient, Document {
 }
 
 export const IngredientSchema = new Schema({
-  name: String
+  name: {type: String, required: true, unique: true}
+}, {
+  timestamps: true
 });
 // IngredientSchema.methods.fullName = function(): string {
 //   return (this.firstName.trim() + " " + this.lastName.trim());

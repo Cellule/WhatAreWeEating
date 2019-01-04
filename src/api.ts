@@ -1,17 +1,24 @@
 import express from "express";
-import apiRoutes from "../client/src/common/api"
+import apiRoutes, { Route } from "../client/src/common/api"
 import Ingredient from "./Schema/Ingredient";
 
 const handlers: {
   [method: string]: {[path: string]: express.RequestHandler},
 } = {
   get: {
+    async ingredient(req, res) {
+      const ingredient = await Ingredient.findOne({name: req.params.name});
+      const response: typeof apiRoutes.get.ingredient.responseType = {
+        ingredient
+      };
+      res.send(response);
+    },
     async ingredients(req, res) {
       const ingredients = await Ingredient.find();
-      const response: typeof apiRoutes.get.ingredients.type = {
+      const response: typeof apiRoutes.get.ingredients.responseType = {
         ingredients
       };
-      res.send(response)
+      res.send(response);
     }
   },
   post: {}
@@ -37,8 +44,8 @@ export function attachApiRoutes(app: express.Express) {
   for (const method in handlers) {
     for (const route in handlers[method]) {
       const handler = handlers[method][route];
-      const routeDef = apiRoutes[method][route];
-      app[method](routeDef.path, handler);
+      const routeDef: Route<any, any> = apiRoutes[method][route];
+      app[method](routeDef.urlFormat, handler);
     }
   }
 }

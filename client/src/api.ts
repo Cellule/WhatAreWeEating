@@ -1,7 +1,11 @@
 import apiRoutes, {Route} from "./common/api";
 
-async function fetchBackend<T>(route: Route<T>, signal: AbortSignal) : Promise<T> {
-  const response = await fetch(route.path, {
+async function fetchBackend<Response, Params>(
+  route: Route<Response, Params>,
+  signal: AbortSignal,
+  params?: Params
+) : Promise<Response> {
+  const response = await fetch(route.getUrl(params), {
     signal
   });
   let tryBody: any = {
@@ -19,7 +23,11 @@ async function fetchBackend<T>(route: Route<T>, signal: AbortSignal) : Promise<T
   if (response.status !== 200) {
     throw Error(tryBody.message);
   }
-  return tryBody as T;
+  return tryBody as Response;
+}
+
+export async function getIngredient(signal: AbortSignal, params: typeof apiRoutes.get.ingredient.paramsType) {
+  return fetchBackend(apiRoutes.get.ingredient, signal, params);
 }
 
 export async function getIngredients(signal: AbortSignal) {

@@ -16,7 +16,7 @@ interface State {
   ingredients: IIngredient[]
 }
 
-export default class Ingredients extends React.Component {
+export default class Ingredients extends React.Component<{}, State> {
   public static displayName = Ingredients.name
   state: State = {
     ingredients: [],
