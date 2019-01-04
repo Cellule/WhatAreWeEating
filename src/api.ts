@@ -1,25 +1,40 @@
 import express from "express";
 import apiRoutes, { Route } from "../client/src/common/api"
 import Ingredient from "./Schema/Ingredient";
+import Recipe from "./Schema/Recipe";
+import { Model, Document } from "mongoose";
+
+async function findAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
+  res: express.Response,
+  model: Model<ModelType, any>,
+  route: Route<QueryResponse[]>,
+  condition?: any,
+) {
+  const query: QueryResponse[] = await model.find(condition);
+  res.send(query);
+}
+
+async function findOneAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
+  res: express.Response,
+  model: Model<ModelType, any>,
+  route: Route<QueryResponse>,
+  condition?: any,
+) {
+  const query: QueryResponse = await model.findOne(condition);
+  if (query === null) {
+    return res.sendStatus(404);
+  }
+  res.send(query);
+}
 
 const handlers: {
   [method: string]: {[path: string]: express.RequestHandler},
 } = {
   get: {
-    async ingredient(req, res) {
-      const ingredient = await Ingredient.findOne({name: req.params.name});
-      const response: typeof apiRoutes.get.ingredient.responseType = {
-        ingredient
-      };
-      res.send(response);
-    },
-    async ingredients(req, res) {
-      const ingredients = await Ingredient.find();
-      const response: typeof apiRoutes.get.ingredients.responseType = {
-        ingredients
-      };
-      res.send(response);
-    }
+    ingredient: (req, res) => findOneAndReply(res, Ingredient, apiRoutes.get.ingredient, {name: req.params.name}),
+    ingredients: (req, res) => findAndReply(res, Ingredient, apiRoutes.get.ingredients),
+    recipe: (req, res) => findOneAndReply(res, Recipe, apiRoutes.get.recipe, {name: req.params.name}),
+    recipes: (req, res) => findAndReply(res, Recipe, apiRoutes.get.recipes),
   },
   post: {}
 }

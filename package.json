@@ -6,7 +6,7 @@
     "client": "cd client && npm start",
     "build-server": "tsc -p .",
     "server": "nodemon server.js -w server.js -w src -w tsconfig*.json -w client/src/common -e ts",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail --raw npm:server npm:client"
   },
   "dependencies": {
     "@types/body-parser": "^1.17.0",

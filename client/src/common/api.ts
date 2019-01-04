@@ -1,4 +1,4 @@
-import {IIngredient} from "./interfaces";
+import {IIngredient, IRecipe} from "./interfaces";
 
 export class Route<Response, Params = {}> {
   name: string;
@@ -57,9 +57,12 @@ export class Route<Response, Params = {}> {
 
 const apiRoutes = {
   get: {
-    ingredient: new Route<{ingredient: IIngredient}, {name: string}>("get", "ingredient", [":name"]),
-    ingredients: new Route<{ingredients: IIngredient[]}>("get", "ingredients"),
+    ingredient: new Route<IIngredient, {name: string}>("get", "ingredient", [":name"]),
+    ingredients: new Route<IIngredient[]>("get", "ingredients"),
+    recipe: new Route<IRecipe, {name: string}>("get", "recipe", [":name"]),
+    recipes: new Route<IRecipe[]>("get", "recipes"),
   },
+
 }
 
 export default apiRoutes;
