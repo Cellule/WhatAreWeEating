@@ -4,6 +4,8 @@ import Ingredient from "./Schema/Ingredient";
 import Recipe from "./Schema/Recipe";
 import { Model, Document } from "mongoose";
 
+export const ApiRoutes = apiRoutes;
+
 async function findAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
   res: express.Response,
   model: Model<ModelType, any>,

@@ -2,8 +2,7 @@ import { Document, Schema, model} from "mongoose";
 import { IIngredient } from "../../client/src/common/interfaces";
 
 export interface IIngredientModel extends IIngredient, Document {
-  // mongoose methods
-  //fullName(): string;
+  isEqual(value: IIngredient): boolean;
 }
 
 export const IngredientSchema = new Schema({
@@ -11,8 +10,8 @@ export const IngredientSchema = new Schema({
 }, {
   timestamps: true
 });
-// IngredientSchema.methods.fullName = function(): string {
-//   return (this.firstName.trim() + " " + this.lastName.trim());
-// };
+IngredientSchema.methods.isEqual = function(value: IIngredient): boolean {
+  return this.name === value.name;
+};
 
 export default model<IIngredientModel>("Ingredient", IngredientSchema);

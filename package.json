@@ -5,8 +5,9 @@
   "scripts": {
     "client": "cd client && npm start",
     "build-server": "tsc -p .",
-    "server": "nodemon server.js -w server.js -w src -w tsconfig*.json -w client/src/common -e ts",
-    "dev": "concurrently --kill-others-on-fail npm:server npm:client"
+    "server": "nodemon server.js -w server.js -w ./src -w ./tsconfig.json -w ./tsconfig.common.json -w ./client/src/common -e ts",
+    "dev": "concurrently --kill-others-on-fail npm:server npm:client",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "dependencies": {
     "@types/body-parser": "^1.17.0",
@@ -21,7 +22,15 @@
     "typescript": "3.2.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chai-http": "^3.0.5",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "concurrently": "^4.0.1",
-    "nodemon": "^1.18.9"
+    "mocha": "^5.2.0",
+    "mongodb-memory-server": "^2.9.1",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1"
   }
 }
