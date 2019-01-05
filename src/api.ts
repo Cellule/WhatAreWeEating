@@ -3,12 +3,13 @@ import apiRoutes, { Route } from "../client/src/common/api"
 import Ingredient from "./Schema/Ingredient";
 import Recipe from "./Schema/Recipe";
 import { Model, Document } from "mongoose";
+import { TypedModel } from "./Schema/utils";
 
 export const ApiRoutes = apiRoutes;
 
 async function findAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
   res: express.Response,
-  model: Model<ModelType, any>,
+  model: TypedModel<QueryResponse, ModelType>,
   route: Route<QueryResponse[]>,
   condition?: any,
 ) {
@@ -18,7 +19,7 @@ async function findAndReply<ModelType extends Document & QueryResponse, QueryRes
 
 async function findOneAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
   res: express.Response,
-  model: Model<ModelType, any>,
+  model: TypedModel<QueryResponse, ModelType>,
   route: Route<QueryResponse>,
   condition?: any,
 ) {

@@ -1,5 +1,6 @@
 import { Document, Schema, model} from "mongoose";
 import { IRecipe } from "../../client/src/common/interfaces";
+import { makeModel } from "./utils";
 
 export interface IRecipeModel extends IRecipe, Document {
 }
@@ -12,4 +13,4 @@ export const RecipeSchema = new Schema({
   timestamps: true
 });
 
-export default model<IRecipeModel>("Recipe", RecipeSchema);
+export default makeModel<IRecipe, IRecipeModel>("Recipe", RecipeSchema);

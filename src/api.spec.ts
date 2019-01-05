@@ -17,7 +17,7 @@ after(cleanup);
 
 describe('Ingredients', () => {
   const initalData = [
-    new Ingredient({name: "tomato"}),
+    Ingredient.make({name: "asd"}),
   ];
   function compareIngredients(models: IIngredientModel[], ingredients: IIngredient[]) {
     ingredients.should.be.a('array');
