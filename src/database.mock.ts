@@ -1,6 +1,6 @@
 import MongoMemoryServer from 'mongodb-memory-server';
 
-let mongoServer: MongoMemoryServer = null;
+let mongoServer: MongoMemoryServer | null = null;
 export async function getMockMongoUri() {
   if (!mongoServer) {
     mongoServer = new MongoMemoryServer();

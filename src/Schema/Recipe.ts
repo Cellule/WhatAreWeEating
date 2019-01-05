@@ -1,4 +1,4 @@
-import { Document, Schema, model} from "mongoose";
+import { Document, Schema} from "mongoose";
 import { IRecipe } from "../../client/src/common/interfaces";
 import { makeModel } from "./utils";
 

@@ -10,7 +10,7 @@ export const ApiRoutes = apiRoutes;
 async function findAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
   res: express.Response,
   model: TypedModel<QueryResponse, ModelType>,
-  route: Route<QueryResponse[]>,
+  route: Route<QueryResponse[], any>,
   condition?: any,
 ) {
   const query: QueryResponse[] = await model.find(condition);
@@ -20,10 +20,10 @@ async function findAndReply<ModelType extends Document & QueryResponse, QueryRes
 async function findOneAndReply<ModelType extends Document & QueryResponse, QueryResponse>(
   res: express.Response,
   model: TypedModel<QueryResponse, ModelType>,
-  route: Route<QueryResponse>,
+  route: Route<QueryResponse, any>,
   condition?: any,
 ) {
-  const query: QueryResponse = await model.findOne(condition);
+  const query: QueryResponse | null = await model.findOne(condition);
   if (query === null) {
     return res.sendStatus(404);
   }

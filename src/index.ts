@@ -1,8 +1,9 @@
 import { startServer } from "./server";
 import { connect } from "./database";
+import { getAzureMongodbUri } from "./database.azure";
 
 async function main() {
-  await connect();
+  await connect(getAzureMongodbUri);
   await startServer();
 }
 

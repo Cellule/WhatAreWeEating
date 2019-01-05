@@ -1,6 +1,6 @@
 import {IIngredient, IRecipe} from "./interfaces";
 
-export class Route<Response, Params = {}> {
+export class Route<Response, Params = null> {
   name: string;
   method: string;
   urlFormat: string;
@@ -25,7 +25,7 @@ export class Route<Response, Params = {}> {
     this.responseType = {} as Response;
   }
 
-  getUrl(params?: Params) {
+  getUrl(params: Params) {
     if (this.extraPath.length === 0) {
       // Without extra path, the format is the url
       return this.urlFormat;

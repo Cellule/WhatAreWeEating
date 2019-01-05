@@ -4,8 +4,8 @@ import { attachApiRoutes } from "./api";
 import { Server } from "http";
 
 export type ExpressApplication = express.Express;
-let app: ExpressApplication = null;
-let server: Server;
+let app: ExpressApplication | null = null;
+let server: Server | null = null;
 export async function startServer() {
   if (!app) {
     app = express();
@@ -16,9 +16,10 @@ export async function startServer() {
     attachApiRoutes(app);
 
     server = app.listen(port, () => console.log(`Listening on port ${port}`));
+    const _server = server;
     await new Promise((resolve, reject) => {
-      server.on("listening", resolve);
-      server.on("error", reject);
+      _server.on("listening", resolve);
+      _server.on("error", reject);
     });
   }
   return app;
@@ -26,8 +27,9 @@ export async function startServer() {
 
 export async function stopServer() {
   if (server) {
+    const _server = server;
     console.log("Stopping server");
-    await new Promise(resolve => server.close(resolve));
+    await new Promise(resolve => _server.close(resolve));
   }
   server = null;
   app = null;
