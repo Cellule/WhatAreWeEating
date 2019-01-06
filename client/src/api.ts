@@ -3,7 +3,7 @@ import apiRoutes, {Route} from "./common/api";
 async function fetchBackend<Response, Params>(
   route: Route<Response, Params>,
   signal: AbortSignal,
-  params?: Params
+  params: Params
 ) : Promise<Response> {
   const response = await fetch(route.getUrl(params), {
     signal
@@ -31,5 +31,5 @@ export async function getIngredient(signal: AbortSignal, params: typeof apiRoute
 }
 
 export async function getIngredients(signal: AbortSignal) {
-  return fetchBackend(apiRoutes.get.ingredients, signal);
+  return fetchBackend(apiRoutes.get.ingredients, signal, null);
 }
