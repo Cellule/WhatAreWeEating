@@ -16,21 +16,21 @@ before(async () => {
 after(cleanup);
 
 describe('Ingredients', () => {
-  const initalData = [
+  const initalData = () => [
     Ingredient.make({name: "Tomato"}),
     Ingredient.make({name: "Carrot"}),
     Ingredient.make({name: "Ketchup"}),
   ];
   function compareIngredients(models: IIngredientModel[], ingredients: IIngredient[]) {
     ingredients.should.be.a('array');
-    ingredients.length.should.be.eql(initalData.length);
+    ingredients.length.should.be.eql(models.length);
     for (let i = 0; i < models.length; ++i) {
       models[i].isEqual(ingredients[i]).should.be.true;
     }
   }
   beforeEach(async () => {
     await Ingredient.deleteMany({});
-    await Promise.all(initalData.map(init => init.save()));
+    await Promise.all(initalData().map(init => init.save()));
   });
 
   describe('/GET ingredients', () => {
@@ -39,13 +39,13 @@ describe('Ingredients', () => {
         .get(ApiRoutes.get.ingredients.getUrl(null));
       res.should.have.status(200);
       const ingredients = res.body as typeof ApiRoutes.get.ingredients.responseType;
-      compareIngredients(initalData, ingredients);
+      compareIngredients(initalData(), ingredients);
     });
   });
 
   describe('/GET ingredient', () => {
     it('it should GET the specified ingredient', async () => {
-      for (const init of initalData) {
+      for (const init of initalData()) {
         const res = await chai.request(server)
          .get(ApiRoutes.get.ingredient.getUrl({name: init.name}));
         res.should.have.status(200);

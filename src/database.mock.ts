@@ -1,11 +1,13 @@
 import MongoMemoryServer from 'mongodb-memory-server';
 
-let mongoServer: MongoMemoryServer | null = null;
+export let mongoServer: MongoMemoryServer | null = null;
 export async function getMockMongoUri() {
   if (!mongoServer) {
     mongoServer = new MongoMemoryServer();
   }
-  return await mongoServer.getConnectionString();
+  const connectionString = await mongoServer.getConnectionString();
+  console.log(`Started Mock mongodb at ${connectionString}`);
+  return connectionString;
 }
 
 export async function closeMockMongoDb() {
